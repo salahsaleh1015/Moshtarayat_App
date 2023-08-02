@@ -1,3 +1,6 @@
+import 'package:moshtarayat_app/core/constants/constants.dart';
+import 'package:moshtarayat_app/core/functions/save_panners.dart';
+import 'package:moshtarayat_app/core/functions/save_products.dart';
 import 'package:moshtarayat_app/core/services/api_services.dart';
 import 'package:moshtarayat_app/features/home/data/models/banner_model.dart';
 import 'package:moshtarayat_app/features/home/data/models/product_model.dart';
@@ -19,6 +22,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
   Future<List<ProductEntity>> fetchProductsList() async {
     var data = await apiService.get(endPoint: 'products');
     List<ProductEntity> products = getProductList(data);
+    saveProducts(products, kProductBox);
     return products;
   }
 
@@ -34,6 +38,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
   Future<List<BannerEntity>> fetchBannersList() async {
     var data = await apiService.get(endPoint: 'banners');
     List<BannerEntity> banners = getBannerList(data);
+    saveBanners(banners, kBannerBox);
     return banners;
   }
 
