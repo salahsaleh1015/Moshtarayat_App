@@ -1,6 +1,7 @@
-
-
 import '../../domain/entities/product_entity.dart';
+
+// هنا بنستقبل ال data الي راجعه من ال model
+// و بشوف انا هعرض منها ايه و بتطبيق مبدأ الوراثه باخد اللي انا عايزه من ال super constructor
 
 class ProductModel extends ProductEntity {
   int id;
