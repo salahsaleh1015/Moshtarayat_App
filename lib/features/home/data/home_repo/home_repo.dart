@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 
 import 'package:moshtarayat_app/core/errors/failure.dart';
 import 'package:moshtarayat_app/features/home/data/data_source/home_local_data_source.dart';
@@ -26,7 +27,10 @@ class HomeRepoImpl extends HomeRepo {
       banners = await homeRemoteDataSourceImpl.fetchBannersList();
       return Right(banners);
     } catch (e) {
-      return Left(ServerFailure());
+      if(e is DioException){
+        return Left(ServerFailure.fromDioError(e));
+      }
+      return Left(ServerFailure(e.toString()));
     }
   }
 
@@ -41,7 +45,10 @@ class HomeRepoImpl extends HomeRepo {
       products = await homeRemoteDataSourceImpl.fetchProductsList();
       return Right(products);
     } catch (e) {
-      return Left(ServerFailure());
+      if(e is DioException){
+        return Left(ServerFailure.fromDioError(e));
+      }
+      return Left(ServerFailure(e.toString()));
     }
   }
 }
