@@ -36,7 +36,7 @@ class ServerFailure extends Failure {
     }else if(statusCode== 500){
       return ServerFailure("Sorry, there was an error from the server");
     }else if(statusCode==404||statusCode==401||statusCode==403){
-      return ServerFailure(response['data']['message']);
+      return ServerFailure(response['message']);
     }else{
       return ServerFailure('sorry there was an error , please try again later ');
     }
