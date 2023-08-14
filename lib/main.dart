@@ -38,17 +38,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-class Screen extends StatelessWidget {
-  const Screen({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return  Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: (){},child: const Icon(Icons.access_time)),
-      appBar: AppBar(
-        title: const Text("salah saleh"),
-      ),
-    );
-  }
-}
 
