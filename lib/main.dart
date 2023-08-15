@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:moshtarayat_app/core/my_observer.dart';
 import 'package:moshtarayat_app/core/services/api_services.dart';
 import 'package:moshtarayat_app/features/home/data/data_source/home_local_data_source.dart';
 import 'package:moshtarayat_app/features/home/data/data_source/home_remote_data_source.dart';
@@ -26,7 +27,7 @@ void main() async {
   Hive.registerAdapter(ProductEntityAdapter());
   await Hive.openBox(kProductBox);
   await Hive.openBox(kBannerBox);
-
+   Bloc.observer = MyObserver();
   runApp(const MyApp());
 }
 
