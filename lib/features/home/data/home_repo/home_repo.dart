@@ -15,7 +15,7 @@ class HomeRepoImpl extends HomeRepo {
   final HomeRemoteDataSourceImpl homeRemoteDataSourceImpl;
   final HomeLocalDataSourceImp homeLocalDataSourceImp;
 
-  HomeRepoImpl(this.homeRemoteDataSourceImpl, this.homeLocalDataSourceImp);
+  HomeRepoImpl({required this.homeRemoteDataSourceImpl,required this.homeLocalDataSourceImp});
   @override
   Future<Either<Failure, List<BannerEntity>>> fetchBannersList() async {
     try {
