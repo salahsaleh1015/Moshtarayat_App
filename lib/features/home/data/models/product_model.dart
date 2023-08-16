@@ -6,12 +6,12 @@ import '../../domain/entities/product_entity.dart';
 class ProductModel extends ProductEntity {
   int id;
   num price;
-  int oldPrice;
+  num oldPrice;
   num discount;
   String image;
   String name;
   String description;
-  List<String> images;
+ List<dynamic> images;
   bool inFavorites;
   bool inCart;
 
@@ -45,7 +45,7 @@ class ProductModel extends ProductEntity {
       image: json['image'],
       name: json['name'],
       description: json['description'],
-      images: List<String>.from(json['images']),
+      images:json['images'],
       inFavorites: json['in_favorites'],
       inCart: json['in_cart'],
     );

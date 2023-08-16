@@ -24,15 +24,18 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
     List<ProductEntity> products = getProductList(data);
     saveProducts(products, kProductBox);
     return products;
+
   }
 
   List<ProductEntity> getProductList(Map<String, dynamic> data) {
     List<ProductEntity> products = [];
-    for (var productMap in data['data']) {
-      products.add(ProductModel.fromJson(productMap));
+
+    for (var productMap in data['data']['data'] ) {
+      products.add(ProductModel.fromJson(productMap) );
     }
     return products;
   }
+
 
   @override
   Future<List<BannerEntity>> fetchBannersList() async {
@@ -40,6 +43,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
     List<BannerEntity> banners = getBannerList(data);
     saveBanners(banners, kBannerBox);
     return banners;
+
   }
 
   List<BannerEntity> getBannerList(Map<String, dynamic> data) {

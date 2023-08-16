@@ -1,6 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:moshtarayat_app/features/home/presentation/maneger/banners_maneger/banners_cubit.dart';
+import 'package:moshtarayat_app/features/home/presentation/maneger/banners_maneger/banners_cubit.dart';
+import 'package:moshtarayat_app/features/home/presentation/maneger/products_maneger/products_cubit.dart';
+import 'package:moshtarayat_app/features/home/presentation/view/widgets/banners_list_view.dart';
+
+import 'package:moshtarayat_app/features/home/presentation/view/widgets/grid_view_widget.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -9,73 +16,63 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      body: Padding(
-        padding: EdgeInsets.all(10),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              CarouselSlider(
-                options: CarouselOptions(
-                  height: 300.h,
-                  reverse: false,
-                  autoPlay: true,
-                  autoPlayInterval: const Duration(seconds: 3),
-                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                  scrollDirection: Axis.horizontal,
-                ),
-                items: [
-                  buildCarouselItem("assets/images/test.jpg"),
-                  buildCarouselItem("assets/images/test.jpg"),
-                  buildCarouselItem("assets/images/test.jpg"),
-                  buildCarouselItem("assets/images/test.jpg"),
-                ],
-              ),
-              SizedBox(height: 10),
-              GridView.builder(
-                shrinkWrap: true,
-                physics: const BouncingScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                ),
-                itemCount: 4, // Replace with the actual count of items
-                itemBuilder: (BuildContext context, int index) {
-                  return buildGridItem("assets/images/test.jpg");
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
-    ));
-  }
+          body: Padding(
+            padding: const EdgeInsets.all(10),
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  BlocBuilder<BannersCubit, BannersStates>(
+                    builder: (context, state) {
+                      if (state is BannersSuccess) {
+                        return  SizedBox(
+                          height: 300,
+                          child: BannersListView(
+                            banners: state.banners,
+                          ),
+                        );
+                      } else if (state is BannersFailure) {
+                        return Text(state.errorMessage);
+                      } else {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  const Text("Products",style: TextStyle(
+                    fontSize: 30
+                  ),),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  BlocBuilder<ProductsCubit, ProductsStates>(
 
-  buildCarouselItem(String image) {
-    return ClipRRect(
-        borderRadius: BorderRadius.circular(10.r), child: Image.asset(image));
-  }
-  Widget buildGridItem(String image) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.r),
-              image: DecorationImage(
-                image: AssetImage(image),
-                fit: BoxFit.cover,
+                    builder: (context, state) {
+                      if(state is ProductsSuccess){
+                        return  GridViewWidget(
+                          products: state.products,
+                        );
+                      }else if(state is ProductsFailure){
+                        return Text(state.errorMessage);
+
+                      }else{
+                        return const Center(child: CircularProgressIndicator());
+                      }
+
+                    },
+                  ),
+                ],
               ),
             ),
           ),
-        ),
-        Text("the name of the product"),
-        Text("price",style: TextStyle(
-          color: Colors.blue,
-        )),
-      ],
-
-    );
+        ));
   }
+
+
+
+
 }

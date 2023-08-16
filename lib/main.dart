@@ -22,11 +22,13 @@ import 'features/home/domain/usecase/fetch_products_list_usecase.dart';
 import 'features/home/presentation/view/home_view.dart';
 
 void main() async {
+
   await Hive.initFlutter();
   Hive.registerAdapter(BannerEntityAdapter());
   Hive.registerAdapter(ProductEntityAdapter());
-  await Hive.openBox(kProductBox);
-  await Hive.openBox(kBannerBox);
+  await Hive.openBox<ProductEntity>(kProductBox);
+  await Hive.openBox<BannerEntity>(kBannerBox);
+  setup();
    Bloc.observer = MyObserver();
   runApp(const MyApp());
 }
@@ -41,11 +43,11 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => BannersCubit(
             FetchBannersListUseCase(getIt.get<HomeRepoImpl>()),
-          ),
+          )..fetchBannersList(),
         ),
         BlocProvider(
             create: (context) => ProductsCubit(
-                FetchProductsListUseCase(getIt.get<HomeRepoImpl>())))
+                FetchProductsListUseCase(getIt.get<HomeRepoImpl>()))..fetchProductList())
       ],
       child: ScreenUtilInit(
           designSize: const Size(360, 690),
