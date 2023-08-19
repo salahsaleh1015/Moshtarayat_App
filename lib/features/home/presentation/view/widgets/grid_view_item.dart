@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -13,7 +14,7 @@ class GridViewItem extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.r),
             image: DecorationImage(
-              image: NetworkImage(image),
+              image: CachedNetworkImageProvider(image),
               fit: BoxFit.cover,
             ),
           ),

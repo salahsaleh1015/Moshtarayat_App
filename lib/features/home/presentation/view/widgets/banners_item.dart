@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -11,7 +12,7 @@ final String image;
       height: 100.h,
       decoration: BoxDecoration(
           image:  DecorationImage(
-              image: NetworkImage(image,),fit: BoxFit.fill
+              image:CachedNetworkImageProvider(image),fit: BoxFit.fill
           ),
           borderRadius: BorderRadius.circular(25.r)
       ),
