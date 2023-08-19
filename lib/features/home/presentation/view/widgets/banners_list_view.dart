@@ -9,7 +9,7 @@ class BannersListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-
+physics: const BouncingScrollPhysics(),
       scrollDirection: Axis.horizontal,
      separatorBuilder: (context, index){
         return const SizedBox(
